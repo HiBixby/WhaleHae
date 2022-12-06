@@ -4,7 +4,7 @@
       <div class="year">{{ today.getFullYear() }}</div>
       <div class="month">{{ today.getMonth() + 1 }}</div>
       <div class="btn-container">
-        <button class="btn-prev">
+        <button class="btn-prev" disabled>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="8"
@@ -74,7 +74,6 @@ export default {
 .calendar {
   margin: 3.904rem 0 0 0;
   width: 90.7%;
-  height: 35.3%;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -112,8 +111,8 @@ export default {
   padding: 0;
   fill: black;
 }
-btn-container button:disabled {
-  fill: red;
+.btn-container button:disabled {
+  fill: #707070;
 }
 
 .weeks {

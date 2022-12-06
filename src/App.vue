@@ -1,16 +1,20 @@
 <template>
-  <MainCalendar></MainCalendar>
+  <router-view></router-view>
 </template>
 
 <script>
-import MainCalendar from "./components/MainCalendar.vue";
 export default {
   name: "App",
-  components: { MainCalendar },
 };
 </script>
 
 <style>
+:root {
+  --green-blue: #01af94;
+  --aqua-marine: #34e8cd;
+  --light-grey-blue: #a4c9c3;
+  --ice-blue: #ebfffc;
+}
 * {
   font-family: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
@@ -18,6 +22,7 @@ export default {
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 body,
 html {
