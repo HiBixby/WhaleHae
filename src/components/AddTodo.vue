@@ -24,7 +24,23 @@
     </nav>
     <header>
       <time class="day">2022.12.06</time>
-      <time class="time">14:50</time>
+      <div class="second-line">
+        <input type="time" class="time" />
+        <button class="btn-noti">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="21.888"
+            height="25.014"
+            viewBox="0 0 21.888 25.014"
+          >
+            <path
+              d="M10.962 0A1.562 1.562 0 0 0 9.4 1.563V2.5a7.821 7.821 0 0 0-6.254 7.661v.918a9.4 9.4 0 0 1-2.37 6.234l-.362.406a1.564 1.564 0 0 0 1.168 2.6h18.76a1.564 1.564 0 0 0 1.168-2.6l-.362-.406a9.394 9.394 0 0 1-2.37-6.234v-.918A7.821 7.821 0 0 0 12.525 2.5v-.937A1.562 1.562 0 0 0 10.962 0zm2.213 24.1a3.128 3.128 0 0 0 .914-2.213H7.835a3.13 3.13 0 0 0 5.34 2.213z"
+              transform="translate(-.019)"
+              style="fill: #01af94"
+            />
+          </svg>
+        </button>
+      </div>
     </header>
     <form>
       <label>To do</label>
@@ -83,16 +99,34 @@ form {
   letter-spacing: normal;
   color: var(--green-blue);
 }
+.second-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5.3%;
+}
 .time {
   display: inline-block;
-  margin-bottom: 5.3%;
   font-size: 3rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.17;
   letter-spacing: normal;
+  border: none;
   color: var(--green-blue);
+}
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(48%) sepia(13%) saturate(3207%) hue-rotate(130deg)
+    brightness(95%) contrast(80%);
+}
+.btn-noti {
+  border: none;
+  background: transparent;
+}
+.btn-noti svg {
+  width: 1.368rem;
+  height: 1.563rem;
 }
 label {
   margin-bottom: 0.5rem;
@@ -105,7 +139,8 @@ label {
   letter-spacing: normal;
   color: var(--green-blue);
 }
-input {
+input[type="text"],
+input[type="link"] {
   width: 100%;
   margin-bottom: 1.3rem;
   padding: 1rem;
