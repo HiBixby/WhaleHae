@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="calendar">
-      <div class="year">{{ today.getFullYear() }}</div>
-      <div class="month">{{ today.getMonth() + 1 }}</div>
+      <div class="year">{{ getCurrYear }}</div>
+      <div class="month">{{ getCurrMonth }}</div>
       <div class="btn-container">
-        <button class="btn-prev" disabled>
+        <button class="btn-prev" @click.prevent="GoPrevMonth">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="8"
@@ -16,7 +16,7 @@
             />
           </svg>
         </button>
-        <button class="btn-next">
+        <button class="btn-next" @click="GoNextMonth">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="8"
@@ -38,24 +38,76 @@
         <li>Fr</li>
         <li>Sa</li>
       </ul>
+      <ul class="days">
+        <li v-for="i in getFirstDayOfMonth" v-bind:key="i" class="disabled">
+          <!-- {{ getLastDateOfLastMonth - (getFirstDayOfMonth - i) }} -->
+        </li>
+        <li
+          v-for="i in getLastDateOfMonth"
+          v-bind:key="i"
+          :class="{
+            selected:
+              i === selectedDate.getDate() &&
+              currentDate.getFullYear() === selectedDate.getFullYear() &&
+              currentDate.getMonth() === selectedDate.getMonth(),
+          }"
+        >
+          <button class="active">{{ i }}</button>
+        </li>
+      </ul>
     </div>
-    <EmptyTodo></EmptyTodo>
+    <EmptyTodo v-if="selectedDayOfTodoList"></EmptyTodo>
+    <TodoList v-bind:selectedDate="selectedDate.getDate()"></TodoList>
   </div>
 </template>
 
 <script>
 import EmptyTodo from "./EmptyTodo.vue";
+import TodoList from "./TodoList.vue";
 export default {
-  name: "MainCalendar",
+  name: "MainPage",
   components: {
     EmptyTodo,
+    TodoList,
   },
-  props: {
-    today: {
-      type: Date,
-      default: () => {
-        return new Date();
-      },
+  props: {},
+  data() {
+    return {
+      selectedDayOfTodoList: null,
+      currentDate: new Date(),
+      selectedDate: new Date(),
+    };
+  },
+  methods: {
+    GoPrevMonth() {
+      this.currentDate = new Date(
+        this.currentDate.setMonth(this.currentDate.getMonth() - 1)
+      );
+    },
+    GoNextMonth() {
+      this.currentDate = new Date(
+        this.currentDate.setMonth(this.currentDate.getMonth() + 1)
+      );
+    },
+  },
+  computed: {
+    getCurrYear: function () {
+      return this.currentDate.getFullYear();
+    },
+    getCurrMonth: function () {
+      return this.currentDate.getMonth() + 1;
+    },
+    getCurrDay: function () {
+      return this.currentDate.getDay();
+    },
+    getFirstDayOfMonth: function () {
+      return new Date(this.getCurrYear, this.getCurrMonth - 1, 1).getDay();
+    },
+    getLastDateOfMonth: function () {
+      return new Date(this.getCurrYear, this.getCurrMonth, 0).getDate();
+    },
+    getLastDateOfLastMonth: function () {
+      return new Date(this.getCurrYear, this.getCurrMonth - 1, 0).getDate();
     },
   },
 };
@@ -63,6 +115,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+button:hover {
+  cursor: pointer;
+}
 .wrapper {
   width: inherit;
   height: inherit;
@@ -98,12 +153,15 @@ export default {
   line-height: 1.2;
   letter-spacing: normal;
   color: #01af94;
-  margin-left: 5.6%;
+  margin-left: 5.4%;
   display: inline-block;
 }
 .btn-container {
-  display: inline-block;
-  margin-left: 68.5%;
+  display: flex;
+  justify-content: space-between;
+  float: right;
+  width: 2.3rem;
+  margin-right: 7.3%;
 }
 .btn-container button {
   background: transparent;
@@ -114,18 +172,65 @@ export default {
 .btn-container button:disabled {
   fill: #707070;
 }
-
+.days li {
+  font-size: 0.875rem;
+}
+.days {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  margin-top: 0.922rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1.938rem;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  row-gap: 1.8rem;
+}
+.disabled {
+  color: var(--warm-grey);
+}
+.active {
+  color: var(--green-blue);
+  border: none;
+  background: none;
+  font-weight: 500;
+}
+.selected button {
+  position: relative;
+  font-weight: 800;
+  z-index: 10;
+}
+.selected {
+  display: inline-table;
+  position: relative;
+}
+.selected::before {
+  position: absolute;
+  content: "";
+  height: 2.063rem;
+  width: 2.063rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #defffa;
+  border-radius: 5px;
+  border: solid 1px var(--green-blue);
+  z-index: 9;
+}
 .weeks {
   list-style: none;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
   padding: 0;
   margin-top: 2.436rem;
-  margin-left: 8.3%;
-  margin-right: 8.3%;
+  margin-left: 1rem;
+  margin-right: 1rem;
   color: #a4beba;
 }
 .weeks li {
+  font-size: 0.813rem;
   float: left;
 }
 </style>
