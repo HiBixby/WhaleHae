@@ -46,13 +46,10 @@
           v-for="i in getLastDateOfMonth"
           v-bind:key="i"
           :class="{
-            selected:
-              i === selectedDate.getDate() &&
-              currentDate.getFullYear() === selectedDate.getFullYear() &&
-              currentDate.getMonth() === selectedDate.getMonth(),
+            selected: i === selectedDate.getDate() && isEqualYearAndMonth,
           }"
         >
-          <button class="active">{{ i }}</button>
+          <button class="active" @click="ChangeSelectedDate(i)">{{ i }}</button>
         </li>
       </ul>
     </div>
@@ -89,6 +86,9 @@ export default {
         this.currentDate.setMonth(this.currentDate.getMonth() + 1)
       );
     },
+    ChangeSelectedDate(i) {
+      this.selectedDate = new Date(this.getCurrYear, this.getCurrMonth - 1, i);
+    },
   },
   computed: {
     getCurrYear: function () {
@@ -108,6 +108,12 @@ export default {
     },
     getLastDateOfLastMonth: function () {
       return new Date(this.getCurrYear, this.getCurrMonth - 1, 0).getDate();
+    },
+    isEqualYearAndMonth: function () {
+      return (
+        this.currentDate.getFullYear() === this.selectedDate.getFullYear() &&
+        this.currentDate.getMonth() === this.selectedDate.getMonth()
+      );
     },
   },
 };
