@@ -8,8 +8,8 @@ const router = createRouter({
     // path별 component를 추가한다.
     { path: "/", name: "home", component: Home },
     {
-      path: "/add",
-      name: "add",
+      path: "/task",
+      name: "task",
       component: AddTodo,
     },
   ],
