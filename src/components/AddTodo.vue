@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <nav>
-      <router-link to="/" v-slot="{ navigate }">
+      <router-link to="/" custom v-slot="{ navigate }">
         <button @click="navigate" class="btn-prev">
           <svg
             xmlns="http://www.w3.org/2000/svg"
