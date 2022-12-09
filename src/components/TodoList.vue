@@ -2,13 +2,19 @@
   <div class="container">
     <div class="date">{{ selectedDate }}일 Task</div>
     <div class="box">
-      <ul>
+      <ul v-for="todoItem in todoItems" v-bind:key="todoItem">
         <li>
           <div class="first-line">
-            <input type="checkbox" /><time>14:00</time>
+            <input type="checkbox" /><time>{{
+              todoItem.date.toLocaleTimeString([], {
+                hour12: false,
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            }}</time>
           </div>
           <div class="second-line">
-            <span class="title">그래픽 편집 디자인 과제 내기</span>
+            <span class="title">{{ todoItem.title }}</span>
             <div class="button-container">
               <button class="btn-edit">
                 <svg
@@ -44,7 +50,7 @@
               </button>
             </div>
           </div>
-          <p class="link">No Link</p>
+          <p class="link">{{ todoItem.link ? todoItem.link : "No Link" }}</p>
           <hr />
         </li>
       </ul>
@@ -71,10 +77,28 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+dayjs.locale("ko");
+
 export default {
   name: "TodoList",
+
   props: {
     selectedDate: Number,
+  },
+  data() {
+    return {
+      todoItems: [
+        {
+          date: new Date(),
+          title: "그래픽 편집 디자인 과제 내기",
+          link: undefined,
+          noti: false,
+          done: false,
+        },
+      ],
+    };
   },
 };
 </script>
