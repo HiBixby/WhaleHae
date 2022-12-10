@@ -146,7 +146,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 1.5rem 1.25rem;
+  padding: 1.5rem 0rem;
   margin-bottom: 2rem;
   border-radius: 15px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
@@ -155,7 +155,7 @@ export default {
 }
 ul {
   margin: 0;
-  padding: 0;
+  padding: 0 1.25rem;
   list-style: none;
   overflow: scroll;
 }
