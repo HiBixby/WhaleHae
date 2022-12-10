@@ -23,7 +23,7 @@
       </router-link>
     </nav>
     <header>
-      <time class="day">2022.12.06</time>
+      <time class="day">{{ getYYYYMMDD }}</time>
       <div class="second-line">
         <input type="time" class="time" />
         <button class="btn-noti">
@@ -48,18 +48,30 @@
       <label>Link</label>
       <input type="link" placeholder="URL을 입력해주세요." />
     </form>
-    <button class="btn-delete">삭제</button>
+    <router-link to="/" custom v-slot="{ navigate }">
+      <button @click="navigate" class="btn-delete">삭제</button>
+    </router-link>
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+dayjs.locale("ko");
 export default {
   name: "AddTodo",
-  props: {},
+  props: {
+    date: {
+      type: Date,
+      default: new Date(),
+    },
+  },
   data() {
-    return {
-      date: new Date(),
-    };
+    return {};
+  },
+  computed: {
+    getYYYYMMDD: function () {
+      return dayjs(this.date).format("YYYY.MM.DD");
+    },
   },
 };
 </script>
