@@ -2,8 +2,8 @@
   <div class="container">
     <div class="date">{{ selectedDate }}일 Task</div>
     <div class="box">
-      <ul v-for="todoItem in todoItems" v-bind:key="todoItem">
-        <li>
+      <ul>
+        <li v-for="todoItem in todoItems" v-bind:key="todoItem">
           <div class="first-line">
             <input type="checkbox" /><time>{{
               todoItem.date.toLocaleTimeString([], {
@@ -97,6 +97,20 @@ export default {
           noti: false,
           done: false,
         },
+        {
+          date: new Date(),
+          title: "그래픽 편집 디자인 과제 내기",
+          link: undefined,
+          noti: false,
+          done: false,
+        },
+        {
+          date: new Date(),
+          title: "그래픽 편집 디자인 과제 내기",
+          link: undefined,
+          noti: false,
+          done: false,
+        },
       ],
     };
   },
@@ -106,7 +120,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
+  flex: 1;
   width: 90.5%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 .date {
   margin-top: 2.891rem;
@@ -125,17 +144,18 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   padding: 1.5rem 1.25rem;
   margin-bottom: 2rem;
   border-radius: 15px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   background-color: white;
+  overflow: auto;
 }
 ul {
   margin: 0;
   padding: 0;
   list-style: none;
+  overflow: scroll;
 }
 time {
   font-size: 1.25rem;
