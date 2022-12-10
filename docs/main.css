@@ -1,0 +1,26 @@
+.logo-container {
+    height: 100vh;
+    width: 100vw;
+    background-color: #f8fffe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo__img {
+    width: 5.938rem;
+    height: 6rem;
+}
+
+.logo__text {
+    margin-top: 0.75rem;
+    font-size: 3.125rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.18;
+    letter-spacing: normal;
+    text-align: center;
+    color: #34e8cd;
+}
