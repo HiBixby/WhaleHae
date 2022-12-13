@@ -1,9 +1,12 @@
-import { createWebHistory, createRouter } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory,
+} from "vue-router";
 import AddTodo from "../components/AddTodo.vue";
 import Home from "../components/Home.vue";
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     // path별 component를 추가한다.
     { path: "/", name: "home", component: Home },
