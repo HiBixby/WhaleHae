@@ -1,6 +1,10 @@
 # 웨, 일해
 
+🚧 WIP 🚧
+
 [DEMO](https://hibixby.github.io/WhaleHae/)
+vue3.x
+vue-router
 
 ## Project setup
 ```
