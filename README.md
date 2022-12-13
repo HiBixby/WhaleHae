@@ -1,4 +1,6 @@
-# whale-hae
+# 웨, 일해
+
+[DEMO](https://hibixby.github.io/WhaleHae/)
 
 ## Project setup
 ```
