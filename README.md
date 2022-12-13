@@ -3,8 +3,11 @@
 🚧 WIP 🚧
 
 [DEMO](https://hibixby.github.io/WhaleHae/)
+## What I used
+```
 vue3.x
 vue-router
+```
 
 ## Project setup
 ```
