@@ -123,16 +123,18 @@ export default {
 <style scoped>
 .container {
   flex: 1;
-  width: 90.5%;
+  width: 100%;
   max-height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  align-items: center;
+  overflow: hidden;
 }
 .date {
   margin-top: 2.891rem;
   margin-bottom: 1.125rem;
-  margin-left: 0.25rem;
+  margin-left: 1.531rem;
+  margin-right: auto;
   font-size: 1.25rem;
   font-weight: 800;
   font-stretch: normal;
@@ -140,18 +142,20 @@ export default {
   line-height: 1.2;
   letter-spacing: normal;
   color: var(--green-blue);
+  text-align: left;
 }
 .box {
   flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 90.5%;
   padding: 1.5rem 0rem;
   margin-bottom: 2rem;
   border-radius: 15px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   background-color: white;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: visible;
 }
 ul {
   margin: 0;
