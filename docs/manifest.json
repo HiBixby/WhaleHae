@@ -1,0 +1,33 @@
+
+{
+  "manifest_version": 3,
+  "name": "웨,일해(Do whale)",
+  "description": "일정 관리 및 작업 자동 실행",
+  "version": "0.1.0",
+  "sidebar_action": {
+    "default_page": "index.html",
+    "default_icon": {
+      "16": "logo.png",
+      "32": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    },
+    "default_title":"웨,일해",
+    "use_navigation_bar": false
+  },
+  "icons": {
+    "16": "logo.png",
+    "32": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "permissions":[
+    "storage",
+    "tabs",
+    "notifications",
+    "alarms"
+  ],
+  "background":{
+    "service_worker":"background.js"
+  }
+}
