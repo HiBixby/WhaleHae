@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="date">{{ selectedDate }}일 Task</div>
+    <div class="date">{{ getSelectedDate.getDate() }}일 Task</div>
     <div class="box">
       <ul>
         <li v-for="todoItem in todoItems" v-bind:key="todoItem">
@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 dayjs.locale("ko");
@@ -86,9 +87,6 @@ dayjs.locale("ko");
 export default {
   name: "TodoList",
 
-  props: {
-    selectedDate: Number,
-  },
   data() {
     return {
       todoItems: [
@@ -115,6 +113,10 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapState(["selectedDate"]),
+    ...mapGetters(["getSelectedDate"]),
   },
 };
 </script>
