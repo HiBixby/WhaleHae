@@ -5,8 +5,9 @@
 [DEMO](https://hibixby.github.io/WhaleHae/)
 ## What I used
 ```
-vue3.x
-vue-router
+Vue3
+Vue-router4
+Vuex4
 ```
 
 ## Project setup
