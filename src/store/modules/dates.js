@@ -1,22 +1,24 @@
-
 export const dates = {
   state: () => ({
-    today:new Date(),
-    selectedDate: this.today,
+    today: new Date(),
+    selectedDate: null,
   }),
   mutations: {
-    setSelectedDate(state, value) {
+    SET_SELECTED_DATE(state, value) {
       state.selectedDate = value;
-    }
+    },
   },
   getters: {
-    todayInfo(state) {
+    getToday(state) {
       return state.today;
-    }
+    },
+    getSelectedDate(state) {
+      return state.selectedDate;
+    },
   },
   actions: {
-    changeDate({ commit }, value){
-        commit("setSelectedDate", value);
+    setSelectedDate({ commit }, value) {
+      commit("SET_SELECTED_DATE", value);
     },
-  }
+  },
 };

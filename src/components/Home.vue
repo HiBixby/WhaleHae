@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import EmptyTodo from "./EmptyTodo.vue";
 import TodoList from "./TodoList.vue";
 export default {
@@ -91,6 +92,8 @@ export default {
     },
   },
   computed: {
+    ...mapState(["today"]),
+    ...mapGetters(["getToday"]),
     getCurrYear: function () {
       return this.currentDate.getFullYear();
     },
