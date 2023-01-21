@@ -46,7 +46,7 @@
           v-for="i in getLastDateOfMonth"
           v-bind:key="i"
           :class="{
-            selected: i === selectedDate.getDate() && isEqualYearAndMonth,
+            selected: i === getSelectedDate.getDate() && isEqualYearAndMonth,
           }"
         >
           <button class="active" @click="ChangeSelectedDate(i)">{{ i }}</button>
@@ -54,12 +54,12 @@
       </ul>
     </div>
     <EmptyTodo v-if="selectedDayOfTodoList"></EmptyTodo>
-    <TodoList v-bind:selectedDate="selectedDate.getDate()"></TodoList>
+    <TodoList v-bind:selectedDate="getSelectedDate.getDate()"></TodoList>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import EmptyTodo from "./EmptyTodo.vue";
 import TodoList from "./TodoList.vue";
 export default {
@@ -73,10 +73,10 @@ export default {
     return {
       selectedDayOfTodoList: null,
       currentDate: new Date(),
-      selectedDate: new Date(),
     };
   },
   methods: {
+    ...mapActions(["setSelectedDate"]),
     GoPrevMonth() {
       this.currentDate = new Date(
         this.currentDate.setMonth(this.currentDate.getMonth() - 1)
@@ -88,12 +88,14 @@ export default {
       );
     },
     ChangeSelectedDate(i) {
-      this.selectedDate = new Date(this.getCurrYear, this.getCurrMonth - 1, i);
+      this.setSelectedDate(
+        new Date(this.getCurrYear, this.getCurrMonth - 1, i)
+      );
     },
   },
   computed: {
-    ...mapState(["today"]),
-    ...mapGetters(["getToday"]),
+    ...mapState(["selectedDate"]),
+    ...mapGetters(["getSelectedDate"]),
     getCurrYear: function () {
       return this.currentDate.getFullYear();
     },
@@ -114,8 +116,8 @@ export default {
     },
     isEqualYearAndMonth: function () {
       return (
-        this.currentDate.getFullYear() === this.selectedDate.getFullYear() &&
-        this.currentDate.getMonth() === this.selectedDate.getMonth()
+        this.currentDate.getFullYear() === this.getSelectedDate.getFullYear() &&
+        this.currentDate.getMonth() === this.getSelectedDate.getMonth()
       );
     },
   },
