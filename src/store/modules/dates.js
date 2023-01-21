@@ -1,7 +1,6 @@
 export const dates = {
   state: () => ({
-    today: new Date(),
-    selectedDate: null,
+    selectedDate: new Date(),
   }),
   mutations: {
     SET_SELECTED_DATE(state, value) {
@@ -9,9 +8,6 @@ export const dates = {
     },
   },
   getters: {
-    getToday(state) {
-      return state.today;
-    },
     getSelectedDate(state) {
       return state.selectedDate;
     },
