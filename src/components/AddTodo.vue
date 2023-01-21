@@ -55,22 +55,19 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
 import dayjs from "dayjs";
 dayjs.locale("ko");
 export default {
   name: "AddTodo",
-  props: {
-    date: {
-      type: Date,
-      default: new Date(),
-    },
-  },
   data() {
     return {};
   },
   computed: {
+    ...mapState(["selectedDate"]),
+    ...mapGetters(["getSelectedDate"]),
     getYYYYMMDD: function () {
-      return dayjs(this.date).format("YYYY.MM.DD");
+      return dayjs(this.getSelectedDate).format("YYYY.MM.DD");
     },
   },
 };
