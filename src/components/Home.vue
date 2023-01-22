@@ -2,7 +2,7 @@
   <div class="wrapper">
     <CalendarComp />
     <EmptyTodo v-if="isEmpty" />
-    <TodoList />
+    <TodoList v-else />
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import EmptyTodo from "./EmptyTodo.vue";
 import TodoList from "./TodoList.vue";
 import CalendarComp from "./Calendar.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "MainPage",
   components: {
@@ -17,11 +18,11 @@ export default {
     TodoList,
     CalendarComp,
   },
-  props: {},
-  data() {
-    return {
-      isEmpty: false,
-    };
+  computed: {
+    ...mapGetters(["getTodosOfDate"]),
+    isEmpty: function () {
+      return this.getTodosOfDate.length === 0;
+    },
   },
 };
 </script>
