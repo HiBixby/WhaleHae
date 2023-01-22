@@ -2,20 +2,20 @@
   <div class="wrapper">
     <CalendarComp />
     <EmptyTodo v-if="isEmpty" />
-    <TodoList v-else />
+    <TodoBox v-else />
   </div>
 </template>
 
 <script>
-import EmptyTodo from "./EmptyTodo.vue";
-import TodoList from "./TodoList.vue";
-import CalendarComp from "./Calendar.vue";
+import EmptyTodo from "../components/EmptyTodo.vue";
+import TodoBox from "../components/TodoBox.vue";
+import CalendarComp from "../components/Calendar.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "MainPage",
   components: {
     EmptyTodo,
-    TodoList,
+    TodoBox,
     CalendarComp,
   },
   computed: {

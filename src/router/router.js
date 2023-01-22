@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import TodoPage from "../components/TodoPage.vue";
-import MainPage from "../components/MainPage.vue";
+import TodoPage from "../views/TodoPage.vue";
+import MainPage from "../views/MainPage.vue";
+import ListPage from "../views/ListPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -11,6 +12,11 @@ const router = createRouter({
       path: "/todo",
       name: "todo",
       component: TodoPage,
+    },
+    {
+      path: "/list",
+      name: "list",
+      component: ListPage,
     },
   ],
 });
