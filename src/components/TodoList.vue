@@ -3,10 +3,10 @@
     <div class="date">{{ getSelectedDate.getDate() }}일 Task</div>
     <div class="box">
       <ul>
-        <li v-for="todoItem in todoItems" v-bind:key="todoItem">
+        <li v-for="todo in getTodosOfDate" v-bind:key="todo">
           <div class="first-line">
             <input type="checkbox" /><time>{{
-              todoItem.date.toLocaleTimeString([], {
+              todo.date.toLocaleTimeString([], {
                 hour12: false,
                 hour: "2-digit",
                 minute: "2-digit",
@@ -14,7 +14,7 @@
             }}</time>
           </div>
           <div class="second-line">
-            <span class="title">{{ todoItem.title }}</span>
+            <span class="title">{{ todo.title }}</span>
             <div class="button-container">
               <router-link to="/task" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn-edit">
@@ -52,7 +52,7 @@
               </button>
             </div>
           </div>
-          <p class="link">{{ todoItem.link ? todoItem.link : "No Link" }}</p>
+          <p class="link">{{ todo.link ? todo.link : "No Link" }}</p>
           <hr />
         </li>
       </ul>
@@ -87,36 +87,9 @@ dayjs.locale("ko");
 export default {
   name: "TodoList",
 
-  data() {
-    return {
-      todoItems: [
-        {
-          date: new Date(),
-          title: "그래픽 편집 디자인 과제 내기",
-          link: undefined,
-          noti: false,
-          done: false,
-        },
-        {
-          date: new Date(),
-          title: "그래픽 편집 디자인 과제 내기",
-          link: undefined,
-          noti: false,
-          done: false,
-        },
-        {
-          date: new Date(),
-          title: "그래픽 편집 디자인 과제 내기",
-          link: undefined,
-          noti: false,
-          done: false,
-        },
-      ],
-    };
-  },
   computed: {
-    ...mapState(["selectedDate"]),
-    ...mapGetters(["getSelectedDate"]),
+    ...mapState(["selectedDate", "todos"]),
+    ...mapGetters(["getSelectedDate", "getTodosOfDate"]),
   },
 };
 </script>
@@ -135,8 +108,8 @@ export default {
 .date {
   margin-top: 2.891rem;
   margin-bottom: 1.125rem;
-  margin-left: 1.531rem;
-  margin-right: auto;
+  padding-left: 1rem;
+  width: 90.5%;
   font-size: 1.25rem;
   font-weight: 800;
   font-stretch: normal;
