@@ -1,35 +1,28 @@
 export const todos = {
   state: () => ({
-    todos: [
-      {
-        id: 1,
-        date: new Date(),
-        title: "그래픽 편집 디자인 과제 내기",
-        link: undefined,
-        noti: false,
-        done: false,
-      },
-      {
-        id: 2,
-        date: new Date(),
-        title: "그래픽 편집 디자인 과제 내기",
-        link: undefined,
-        noti: false,
-        done: false,
-      },
-      {
-        id: 3,
-        date: new Date(),
-        title: "그래픽 편집 디자인 과제 내기",
-        link: undefined,
-        noti: false,
-        done: false,
-      },
-    ],
+    todos: [],
+    selectedTodo: null,
   }),
   mutations: {
-    SET_TODOS(state, value) {
-      state.todos = value;
+    SET_TODOS(state, todos) {
+      state.todos = todos;
+    },
+    ADD_TODO(state, todo) {
+      state.todos.push(todo);
+    },
+    DELETE_TODO(state, id) {
+      state.todos = state.todos.filter((todo) => todo.id !== id);
+    },
+    EDIT_TODO(state, newTodo) {
+      for (let i = 0; i < state.todos.length; i++) {
+        if (state.todos[i].id === newTodo.id) {
+          state.todos[i] = newTodo;
+          break;
+        }
+      }
+    },
+    SET_SELECTED_TODO(state, value) {
+      state.selectedTodo = value;
     },
   },
   getters: {
@@ -38,17 +31,27 @@ export const todos = {
     },
     getTodosOfDate(state, getters, rootState) {
       const selectedDate = rootState.dates.selectedDate;
-      return state.todos.filter(
-        (todo) =>
-          todo.date.getFullYear() === selectedDate.getFullYear() &&
-          todo.date.getMonth() === selectedDate.getMonth() &&
-          todo.date.getDate() === selectedDate.getDate()
-      );
+      return state.todos
+        .filter(
+          (todo) =>
+            todo.date.getFullYear() === selectedDate.getFullYear() &&
+            todo.date.getMonth() === selectedDate.getMonth() &&
+            todo.date.getDate() === selectedDate.getDate()
+        )
+        .sort(function (a, b) {
+          return a.date - b.date;
+        });
+    },
+    getSelectedTodo(state) {
+      return state.selectedTodo;
     },
   },
   actions: {
     setTodos({ commit }, value) {
       commit("SET_TODOS", value);
+    },
+    addTodo({ commit }, value) {
+      commit("ADD_TODO", value);
     },
   },
 };

@@ -2,7 +2,7 @@
   <div class="container">
     <nav>
       <router-link to="/" custom v-slot="{ navigate }">
-        <button @click="navigate" class="btn-prev">
+        <button @click="SaveAndExit(navigate)" class="btn-prev">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="11.507"
@@ -25,9 +25,10 @@
     <header>
       <time class="day">{{ getYYYYMMDD }}</time>
       <div class="second-line">
-        <input type="time" class="time" />
-        <button class="btn-noti">
+        <input v-model="time" type="time" class="time" />
+        <button @click="ToggleNoti" class="btn-noti">
           <svg
+            v-if="noti"
             xmlns="http://www.w3.org/2000/svg"
             width="21.888"
             height="25.014"
@@ -36,7 +37,12 @@
             <path
               d="M10.962 0A1.562 1.562 0 0 0 9.4 1.563V2.5a7.821 7.821 0 0 0-6.254 7.661v.918a9.4 9.4 0 0 1-2.37 6.234l-.362.406a1.564 1.564 0 0 0 1.168 2.6h18.76a1.564 1.564 0 0 0 1.168-2.6l-.362-.406a9.394 9.394 0 0 1-2.37-6.234v-.918A7.821 7.821 0 0 0 12.525 2.5v-.937A1.562 1.562 0 0 0 10.962 0zm2.213 24.1a3.128 3.128 0 0 0 .914-2.213H7.835a3.13 3.13 0 0 0 5.34 2.213z"
               transform="translate(-.019)"
-              style="fill: #01af94"
+            />
+          </svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+            <path
+              d="M256 32V49.88C328.5 61.39 384 124.2 384 200V233.4C384 278.8 399.5 322.9 427.8 358.4L442.7 377C448.5 384.2 449.6 394.1 445.6 402.4C441.6 410.7 433.2 416 424 416H24C14.77 416 6.365 410.7 2.369 402.4C-1.628 394.1-.504 384.2 5.26 377L20.17 358.4C48.54 322.9 64 278.8 64 233.4V200C64 124.2 119.5 61.39 192 49.88V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32V32zM216 96C158.6 96 112 142.6 112 200V233.4C112 281.3 98.12 328 72.31 368H375.7C349.9 328 336 281.3 336 233.4V200C336 142.6 289.4 96 232 96H216zM288 448C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288z"
             />
           </svg>
         </button>
@@ -44,30 +50,114 @@
     </header>
     <form>
       <label>To do</label>
-      <input type="text" placeholder="제목을 입력해주세요." />
+      <input
+        @input="ChangeTitle"
+        :value="title"
+        type="text"
+        placeholder="제목을 입력해주세요."
+      />
       <label>Link</label>
-      <input type="link" placeholder="URL을 입력해주세요." />
+      <input
+        @input="ChangeLink"
+        :value="link"
+        type="link"
+        placeholder="URL을 입력해주세요."
+      />
     </form>
     <router-link to="/" custom v-slot="{ navigate }">
-      <button @click="navigate" class="btn-delete">삭제</button>
+      <button @click="DeleteAndExit(navigate)" class="btn-delete">삭제</button>
     </router-link>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import dayjs from "dayjs";
 dayjs.locale("ko");
 export default {
   name: "AddTodo",
   data() {
-    return {};
+    const selectedDate = this.$store.getters.getSelectedDate;
+    const selectedTodo = this.$store.getters.getSelectedTodo;
+    let id;
+    if (selectedTodo) {
+      id = selectedTodo.id;
+    } else if (this.$store.getters.getTodos.length!==0) {
+      id = this.$store.getters.getTodos.at(-1).id + 1;
+    } else {
+      id = 1;
+    }
+    return {
+      dateWithoutTime: new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate()
+      ),
+      id: id,
+      time: selectedTodo
+        ? ("0" + selectedTodo.date.getHours()).slice(-2) +
+          ":" +
+          ("0" + selectedTodo.date.getMinutes()).slice(-2)
+        : null,
+      title: selectedTodo ? selectedTodo.title : null,
+      link: selectedTodo ? selectedTodo.link : null,
+      noti: selectedTodo ? selectedTodo.noti : true,
+    };
+  },
+  methods: {
+    ChangeTitle(event) {
+      this.title = event.target.value;
+    },
+    ChangeLink(event) {
+      this.link = event.target.value;
+    },
+    ToggleNoti() {
+      this.noti = !this.noti;
+    },
+    SaveAndExit(navigateMain) {
+      const time = this.time;
+      const hours = time ? parseInt(this.time.slice(0, 2)) : 0;
+      const minutes = time ? parseInt(this.time.slice(3)) : 0;
+      const todo = {
+        id: this.id,
+        date: new Date(
+          this.$store.getters.getSelectedDate.getFullYear(),
+          this.$store.getters.getSelectedDate.getMonth(),
+          this.$store.getters.getSelectedDate.getDate(),
+          hours,
+          minutes,
+          0
+        ),
+        title: this.title,
+        link: this.link,
+        noti: this.noti,
+        done: false,
+      };
+      if (this.$store.getters.getSelectedTodo) {
+        console.log(todo);
+        this.$store.commit("EDIT_TODO", todo);
+        this.$store.commit("SET_SELECTED_TODO", null);
+      } else {
+        this.$store.commit("ADD_TODO", todo);
+      }
+      navigateMain();
+    },
+    DeleteAndExit(Exit) {
+      const selectedTodo = this.$store.getters.getSelectedTodo;
+      if (selectedTodo) {
+        this.$store.commit("DELETE_TODO", selectedTodo.id);
+        this.$store.commit("SET_SELECTED_TODO", null);
+      }
+      Exit();
+    },
   },
   computed: {
-    ...mapState(["selectedDate"]),
     ...mapGetters(["getSelectedDate"]),
     getYYYYMMDD: function () {
       return dayjs(this.getSelectedDate).format("YYYY.MM.DD");
+    },
+    dateOfTodo: function () {
+      return this.getSelectedDate.year;
     },
   },
 };
@@ -134,6 +224,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   background: transparent;
 }
 .btn-noti svg {
+  fill: #01af94;
   width: 1.368rem;
   height: 1.563rem;
 }

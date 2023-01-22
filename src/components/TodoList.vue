@@ -3,18 +3,19 @@
     <li v-for="todo in getTodosOfDate" v-bind:key="todo">
       <div class="first-line">
         <input type="checkbox" /><time>{{
-          todo.date.toLocaleTimeString([], {
-            hour12: false,
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+          ("0" + todo.date.getHours()).slice(-2) +
+          ":" +
+          ("0" + todo.date.getMinutes()).slice(-2)
         }}</time>
       </div>
       <div class="second-line">
         <span class="title">{{ todo.title }}</span>
         <div class="button-container">
           <router-link to="/todo" custom v-slot="{ navigate }">
-            <button @click="navigate" class="btn-edit">
+            <button
+              @click="[navigate(), setSelectedTodo(todo)]"
+              class="btn-edit"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -31,11 +32,10 @@
               </svg>
             </button>
           </router-link>
-          <button class="btn-noti">
+          <button @click="ToggleNoti(todo)" class="btn-noti">
             <svg
+              v-if="todo.noti"
               xmlns="http://www.w3.org/2000/svg"
-              width="15.75"
-              height="18"
               viewBox="0 0 15.75 18"
             >
               <path
@@ -43,7 +43,16 @@
                 data-name="패스 48"
                 d="M7.893,0A1.124,1.124,0,0,0,6.768,1.125V1.8a5.628,5.628,0,0,0-4.5,5.513v.661A6.766,6.766,0,0,1,.563,12.459l-.26.292a1.125,1.125,0,0,0,.84,1.874h13.5a1.125,1.125,0,0,0,.84-1.874l-.26-.292a6.76,6.76,0,0,1-1.705-4.486V7.313A5.628,5.628,0,0,0,9.018,1.8V1.125A1.124,1.124,0,0,0,7.893,0ZM9.486,17.343a2.251,2.251,0,0,0,.657-1.593h-4.5a2.252,2.252,0,0,0,3.843,1.593Z"
                 transform="translate(-0.019)"
-                fill="#01af94"
+              />
+            </svg>
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+            >
+              <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+              <path
+                d="M256 32V49.88C328.5 61.39 384 124.2 384 200V233.4C384 278.8 399.5 322.9 427.8 358.4L442.7 377C448.5 384.2 449.6 394.1 445.6 402.4C441.6 410.7 433.2 416 424 416H24C14.77 416 6.365 410.7 2.369 402.4C-1.628 394.1-.504 384.2 5.26 377L20.17 358.4C48.54 322.9 64 278.8 64 233.4V200C64 124.2 119.5 61.39 192 49.88V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32V32zM216 96C158.6 96 112 142.6 112 200V233.4C112 281.3 98.12 328 72.31 368H375.7C349.9 328 336 281.3 336 233.4V200C336 142.6 289.4 96 232 96H216zM288 448C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288z"
               />
             </svg>
           </button>
@@ -63,10 +72,18 @@ dayjs.locale("ko");
 
 export default {
   name: "TodoList",
-
+  methods: {
+    setSelectedTodo(todo) {
+      this.$store.commit("SET_SELECTED_TODO", todo);
+    },
+    ToggleNoti(todo) {
+      todo.noti = !todo.noti;
+      this.$store.commit("EDIT_TODO", todo);
+    },
+  },
   computed: {
     ...mapState(["selectedDate", "todos"]),
-    ...mapGetters(["getSelectedDate", "getTodosOfDate"]),
+    ...mapGetters(["getSelectedDate", "getTodosOfDate", "getTodos"]),
   },
 };
 </script>
@@ -99,6 +116,11 @@ time {
   letter-spacing: normal;
   text-align: center;
   color: var(--warm-grey);
+}
+.btn-noti svg {
+  fill: var(--green-blue);
+  width: 0.984rem;
+  height: 1.125rem;
 }
 button {
   padding: 0 0.4rem;

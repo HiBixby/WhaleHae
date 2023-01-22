@@ -47,6 +47,25 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 header {
+  font-size: 1.875rem;
+  font-weight: 800;
   color: var(--green-blue);
+  margin-top: 1.3%;
+  margin-bottom: 2.5%;
+}
+.wrapper {
+  padding-top: 5.1%;
+  padding-left: 7.9%;
+  padding-right: 7.9%;
+}
+.btn-prev {
+  border: none;
+  background: none;
+}
+.btn-prev:hover {
+  cursor: pointer;
+}
+ul {
+  padding: 0;
 }
 </style>
