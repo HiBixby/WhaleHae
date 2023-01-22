@@ -1,31 +1,6 @@
 export const todos = {
   state: () => ({
-    todos: [
-      {
-        id: 1,
-        date: new Date(),
-        title: "그래픽 편집 디자인 과제 내기",
-        link: undefined,
-        noti: true,
-        done: false,
-      },
-      {
-        id: 2,
-        date: new Date(),
-        title: "그래픽 편집 디자인 과제 내기",
-        link: undefined,
-        noti: true,
-        done: false,
-      },
-      {
-        id: 3,
-        date: new Date(),
-        title: "그래픽 편집 디자인 과제 내기",
-        link: undefined,
-        noti: true,
-        done: false,
-      },
-    ],
+    todos: [],
     selectedTodo: null,
   }),
   mutations: {
