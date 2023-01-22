@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import EmptyTodo from "../components/EmptyTodo.vue";
-import TodoBox from "../components/TodoBox.vue";
-import CalendarComp from "../components/Calendar.vue";
+import EmptyTodo from "@/components/EmptyTodo.vue";
+import TodoBox from "@/components/TodoBox.vue";
+import CalendarComp from "@/components/Calendar.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "MainPage",
