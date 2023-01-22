@@ -88,7 +88,7 @@ export default {
       return this.currentDate.getFullYear();
     },
     getCurrMonth: function () {
-      return this.currentDate.getMonth() + 1;
+      return ("0"+(this.currentDate.getMonth() + 1)).slice(-2);
     },
     getCurrDay: function () {
       return this.currentDate.getDay();
