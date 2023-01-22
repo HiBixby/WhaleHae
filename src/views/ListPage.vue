@@ -21,18 +21,20 @@
       </button>
     </router-link>
     <header>{{ getSelectedDate.getDate() }}일의 Task</header>
-    <ul>
-      <li v-for="todo in getTodosOfDate" :key="todo">{{ todo.date }}</li>
-    </ul>
+    <todo-list></todo-list>
   </div>
 </template>
 
 <script>
+import TodoList from "@/components/TodoList.vue";
 import { mapGetters } from "vuex";
 import dayjs from "dayjs";
 dayjs.locale("ko");
 export default {
   name: "AddTodo",
+  components: {
+    TodoList,
+  },
   data() {
     return {};
   },

@@ -73,42 +73,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.container {
-  flex: 1;
-  width: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-}
-.date {
-  margin-top: 2.891rem;
-  margin-bottom: 1.125rem;
-  padding-left: 1rem;
-  width: 90.5%;
-  font-size: 1.25rem;
-  font-weight: 800;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: normal;
-  color: var(--green-blue);
-  text-align: left;
-}
-.box {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  width: 90.5%;
-  padding: 1.5rem 0rem;
-  margin-bottom: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  background-color: white;
-  overflow-y: auto;
-  overflow-x: visible;
-}
 ul {
   margin: 0;
   padding: 0 1.25rem;
