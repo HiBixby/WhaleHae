@@ -16,7 +16,7 @@
           <div class="second-line">
             <span class="title">{{ todo.title }}</span>
             <div class="button-container">
-              <router-link to="/task" custom v-slot="{ navigate }">
+              <router-link to="/todo" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn-edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@
           <hr />
         </li>
       </ul>
-      <router-link to="/task" custom v-slot="{ navigate }">
+      <router-link to="/todo" custom v-slot="{ navigate }">
         <button class="btn-add" @click="navigate">
           <svg
             xmlns="http://www.w3.org/2000/svg"

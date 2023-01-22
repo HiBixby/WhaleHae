@@ -4,7 +4,7 @@
       <p>오늘은 한가하네요</p>
       <p>일정을 추가해봐요!</p>
     </div>
-    <router-link to="/add" v-slot="{ navigate }">
+    <router-link to="/todo" v-slot="{ navigate }">
       <button @click="navigate">
         <svg
           xmlns="http://www.w3.org/2000/svg"
