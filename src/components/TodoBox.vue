@@ -3,7 +3,7 @@
     <div class="date">{{ getSelectedDate.getDate() }}일 Task</div>
     <router-link to="/list" custom v-slot="{ navigate }"
       >
-      <div @click="navigate" class="box">
+      <div @click.self="navigate" class="box">
         <TodoList></TodoList>
         <router-link to="/todo" custom v-slot="{ navigate }">
           <button class="btn-add" @click="navigate">
