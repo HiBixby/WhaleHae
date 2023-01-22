@@ -3,18 +3,19 @@
     <li v-for="todo in getTodosOfDate" v-bind:key="todo">
       <div class="first-line">
         <input type="checkbox" /><time>{{
-          todo.date.toLocaleTimeString([], {
-            hour12: false,
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+          ("0" + todo.date.getHours()).slice(-2) +
+          ":" +
+          ("0" + todo.date.getMinutes()).slice(-2)
         }}</time>
       </div>
       <div class="second-line">
         <span class="title">{{ todo.title }}</span>
         <div class="button-container">
           <router-link to="/todo" custom v-slot="{ navigate }">
-            <button @click="navigate" class="btn-edit">
+            <button
+              @click="[navigate(), setSelectedTodo(todo)]"
+              class="btn-edit"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -63,10 +64,14 @@ dayjs.locale("ko");
 
 export default {
   name: "TodoList",
-
+  methods: {
+    setSelectedTodo(todo) {
+      this.$store.commit("SET_SELECTED_TODO", todo);
+    },
+  },
   computed: {
     ...mapState(["selectedDate", "todos"]),
-    ...mapGetters(["getSelectedDate", "getTodosOfDate"]),
+    ...mapGetters(["getSelectedDate", "getTodosOfDate", "getTodos"]),
   },
 };
 </script>
