@@ -32,7 +32,7 @@
               </svg>
             </button>
           </router-link>
-          <button class="btn-noti">
+          <button @click="ToggleNoti(todo)" class="btn-noti">
             <svg
               v-if="todo.noti"
               xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@
               />
             </svg>
             <svg
-              v-if="!todo.noti"
+              v-else
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
             >
@@ -75,6 +75,10 @@ export default {
   methods: {
     setSelectedTodo(todo) {
       this.$store.commit("SET_SELECTED_TODO", todo);
+    },
+    ToggleNoti(todo) {
+      todo.noti = !todo.noti;
+      this.$store.commit("EDIT_TODO", todo);
     },
   },
   computed: {
