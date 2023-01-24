@@ -2,14 +2,18 @@
   <ul>
     <li v-for="todo in getTodosOfDate" v-bind:key="todo">
       <div class="first-line">
-        <input type="checkbox" /><time>{{
+        <input
+          type="checkbox"
+          @click="ToggleDone(todo)"
+          :checked="todo.done"
+        /><time :class="{ done: todo.done }">{{
           ("0" + todo.date.getHours()).slice(-2) +
           ":" +
           ("0" + todo.date.getMinutes()).slice(-2)
         }}</time>
       </div>
       <div class="second-line">
-        <span class="title">{{ todo.title }}</span>
+        <span class="title" :class="{ done: todo.done }">{{ todo.title }}</span>
         <div class="button-container">
           <router-link to="/todo" custom v-slot="{ navigate }">
             <button
@@ -72,9 +76,19 @@ dayjs.locale("ko");
 
 export default {
   name: "TodoList",
+  data() {
+    return {
+      done: [],
+    };
+  },
   methods: {
     setSelectedTodo(todo) {
       this.$store.commit("SET_SELECTED_TODO", todo);
+    },
+    ToggleDone(todo) {
+      todo.done = !todo.done;
+      this.$store.dispatch("editTodo", todo);
+      this.$store.dispatch("setTodos", this.$store.getters.getTodos);
     },
     ToggleNoti(todo) {
       todo.noti = !todo.noti;
@@ -102,6 +116,9 @@ time {
   font-weight: 600;
   line-height: 1.2;
   color: var(--green-blue);
+}
+.done {
+  text-decoration: line-through;
 }
 .second-line {
   display: flex;

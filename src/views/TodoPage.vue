@@ -102,6 +102,7 @@ export default {
       title: selectedTodo ? selectedTodo.title : null,
       link: selectedTodo ? selectedTodo.link : null,
       noti: selectedTodo ? selectedTodo.noti : true,
+      done: selectedTodo ? selectedTodo.done : false,
     };
   },
   methods: {
@@ -139,7 +140,7 @@ export default {
         title: this.title,
         link: this.link,
         noti: this.noti,
-        done: false,
+        done: this.done,
       };
       if (this.$store.getters.getSelectedTodo) {
         console.log(todo);
