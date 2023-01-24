@@ -1,4 +1,3 @@
-
 {
   "manifest_version": 3,
   "name": "웨,일해(Do whale)",
@@ -12,7 +11,7 @@
       "48": "logo.png",
       "128": "logo.png"
     },
-    "default_title":"웨,일해",
+    "default_title": "웨,일해",
     "use_navigation_bar": false
   },
   "icons": {
@@ -21,13 +20,14 @@
     "48": "logo.png",
     "128": "logo.png"
   },
-  "permissions":[
+  "permissions": [
+    "unlimitedStorage",
     "storage",
     "tabs",
     "notifications",
     "alarms"
   ],
-  "background":{
-    "service_worker":"background.js"
+  "background": {
+    "service_worker": "background.js"
   }
 }
