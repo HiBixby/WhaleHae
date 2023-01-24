@@ -1,4 +1,6 @@
 # 웨, 일해
+![설명이미지](https://user-images.githubusercontent.com/66160055/214256892-ff54a462-063a-4897-b9e2-8783df8cdc86.png)
+
 
 🚧 WIP 🚧
 
