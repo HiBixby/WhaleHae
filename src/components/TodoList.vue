@@ -78,7 +78,8 @@ export default {
     },
     ToggleNoti(todo) {
       todo.noti = !todo.noti;
-      this.$store.commit("EDIT_TODO", todo);
+      this.$store.dispatch("editTodo", todo);
+      this.$store.dispatch("setTodos", this.$store.getters.getTodos);
     },
   },
   computed: {
