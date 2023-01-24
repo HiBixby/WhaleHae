@@ -15,11 +15,12 @@ export default {
           todo.date = new Date(todo.date);
           return todo;
         });
-        console.log(storedTodos);
         store.commit("SET_TODOS", storedTodos);
       });
     } catch {
       console.log("개발모드입니다.");
+      const storedTodos = JSON.parse(localStorage.getItem("todos"));
+      store.commit("SET_TODOS", storedTodos);
     }
   },
 };
