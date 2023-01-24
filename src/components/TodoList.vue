@@ -6,11 +6,7 @@
           type="checkbox"
           @click="ToggleDone(todo)"
           :checked="todo.done"
-        /><time :class="{ done: todo.done }">{{
-          ("0" + todo.date.getHours()).slice(-2) +
-          ":" +
-          ("0" + todo.date.getMinutes()).slice(-2)
-        }}</time>
+        /><time :class="{ done: todo.done }"> {{ todo.time ? todo.time : "--:--" }}</time>
       </div>
       <div class="second-line">
         <span class="title" :class="{ done: todo.done }">{{ todo.title }}</span>
@@ -62,7 +58,15 @@
           </button>
         </div>
       </div>
-      <p class="link">{{ todo.link ? todo.link : "No Link" }}</p>
+      <a
+        v-if="todo.link !== null"
+        :href="todo.link"
+        class="link"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ todo.link }}</a
+      >
+      <a v-else class="link">No Link</a>
       <hr />
     </li>
   </ul>
@@ -111,6 +115,12 @@ ul {
   list-style: none;
   overflow: scroll;
 }
+input[type="checkbox"] {
+  accent-color: var(--green-blue);
+}
+input[type="checkbox"] {
+  cursor: pointer;
+}
 time {
   font-size: 1.25rem;
   font-weight: 600;
@@ -119,6 +129,7 @@ time {
 }
 .done {
   text-decoration: line-through;
+  color: #b9b9b9;
 }
 .second-line {
   display: flex;

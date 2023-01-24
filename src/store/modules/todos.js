@@ -2,22 +2,27 @@ function CreateAlarm(todo) {
   if (
     todo.date.getTime() > Date.now() &&
     todo.noti === true &&
-    todo.done === false
+    todo.done === false &&
+    todo.time !== null
   ) {
+    console.log("알람 생성 조건에 맞음.");
     try {
       //eslint-disable-next-line
       chrome.alarms.create(todo.id.toString(), {
         when: todo.date.getTime(),
       });
     } catch {
-      console.log("알람 생성되지 않음.");
+      console.log("chrome.alarms.create를 사용할 수 없음.");
     }
   }
 }
 function DeleteAlarm(id) {
   try {
+    const clearCallback = (wasCleared) => {
+      console.log("was cleared : ", wasCleared);
+    };
     //eslint-disable-next-line
-    chrome.alarms.clear(id.toString());
+    chrome.alarms.clear(id.toString(), clearCallback);
   } catch {
     console.log("Chrome.alarm 삭제되지 않음");
   }
