@@ -94,11 +94,7 @@ export default {
         selectedDate.getDate()
       ),
       id: id,
-      time: selectedTodo
-        ? ("0" + selectedTodo.date.getHours()).slice(-2) +
-          ":" +
-          ("0" + selectedTodo.date.getMinutes()).slice(-2)
-        : null,
+      time: selectedTodo ? selectedTodo.time : null,
       title: selectedTodo ? selectedTodo.title : null,
       link: selectedTodo ? selectedTodo.link : null,
       noti: selectedTodo ? selectedTodo.noti : true,
@@ -124,6 +120,13 @@ export default {
         );
     },
     SaveAndExit(navigateMain) {
+      const addMissingScheme = (url, defaultScheme) => {
+        if (!/^(?:f|ht)tps?:\/\//.test(url)) {
+          url = defaultScheme + "://" + url;
+        }
+        return url;
+      };
+
       const time = this.time;
       const hours = time ? parseInt(this.time.slice(0, 2)) : 0;
       const minutes = time ? parseInt(this.time.slice(3)) : 0;
@@ -137,8 +140,9 @@ export default {
           minutes,
           0
         ),
+        time: this.time,
         title: this.title,
-        link: this.link,
+        link: this.link ? addMissingScheme(this.link, "http") : null,
         noti: this.noti,
         done: this.done,
       };
