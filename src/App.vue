@@ -3,8 +3,25 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
 export default {
   name: "App",
+  setup() {
+    const store = useStore();
+    try {
+      //eslint-disable-next-line
+      chrome.storage.local.get(["todos"]).then((result) => {
+        const storedTodos = Object.values(result.todos).map((todo) => {
+          todo.date = new Date(todo.date);
+          return todo;
+        });
+        console.log(storedTodos);
+        store.commit("SET_TODOS", storedTodos);
+      });
+    } catch {
+      console.log("개발모드입니다.");
+    }
+  },
 };
 </script>
 

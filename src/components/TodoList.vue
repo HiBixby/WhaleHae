@@ -2,14 +2,14 @@
   <ul>
     <li v-for="todo in getTodosOfDate" v-bind:key="todo">
       <div class="first-line">
-        <input type="checkbox" /><time>{{
-          ("0" + todo.date.getHours()).slice(-2) +
-          ":" +
-          ("0" + todo.date.getMinutes()).slice(-2)
-        }}</time>
+        <input
+          type="checkbox"
+          @click="ToggleDone(todo)"
+          :checked="todo.done"
+        /><time :class="{ done: todo.done }"> {{ todo.time ? todo.time : "--:--" }}</time>
       </div>
       <div class="second-line">
-        <span class="title">{{ todo.title }}</span>
+        <span class="title" :class="{ done: todo.done }">{{ todo.title }}</span>
         <div class="button-container">
           <router-link to="/todo" custom v-slot="{ navigate }">
             <button
@@ -58,7 +58,15 @@
           </button>
         </div>
       </div>
-      <p class="link">{{ todo.link ? todo.link : "No Link" }}</p>
+      <a
+        v-if="todo.link !== null"
+        :href="todo.link"
+        class="link"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ todo.link }}</a
+      >
+      <a v-else class="link">No Link</a>
       <hr />
     </li>
   </ul>
@@ -72,13 +80,24 @@ dayjs.locale("ko");
 
 export default {
   name: "TodoList",
+  data() {
+    return {
+      done: [],
+    };
+  },
   methods: {
     setSelectedTodo(todo) {
       this.$store.commit("SET_SELECTED_TODO", todo);
     },
+    ToggleDone(todo) {
+      todo.done = !todo.done;
+      this.$store.dispatch("editTodo", todo);
+      this.$store.dispatch("setTodos", this.$store.getters.getTodos);
+    },
     ToggleNoti(todo) {
       todo.noti = !todo.noti;
-      this.$store.commit("EDIT_TODO", todo);
+      this.$store.dispatch("editTodo", todo);
+      this.$store.dispatch("setTodos", this.$store.getters.getTodos);
     },
   },
   computed: {
@@ -96,11 +115,21 @@ ul {
   list-style: none;
   overflow: scroll;
 }
+input[type="checkbox"] {
+  accent-color: var(--green-blue);
+}
+input[type="checkbox"] {
+  cursor: pointer;
+}
 time {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.2;
   color: var(--green-blue);
+}
+.done {
+  text-decoration: line-through;
+  color: #b9b9b9;
 }
 .second-line {
   display: flex;

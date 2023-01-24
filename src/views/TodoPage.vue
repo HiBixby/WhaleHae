@@ -60,7 +60,7 @@
       <input
         @input="ChangeLink"
         :value="link"
-        type="link"
+        type="url"
         placeholder="URL을 입력해주세요."
       />
     </form>
@@ -82,8 +82,8 @@ export default {
     let id;
     if (selectedTodo) {
       id = selectedTodo.id;
-    } else if (this.$store.getters.getTodos.length!==0) {
-      id = this.$store.getters.getTodos.at(-1).id + 1;
+    } else if (this.$store.getters.getTodos.length !== 0) {
+      id = parseInt(this.$store.getters.getTodos.at(-1).id) + 1;
     } else {
       id = 1;
     }
@@ -94,14 +94,11 @@ export default {
         selectedDate.getDate()
       ),
       id: id,
-      time: selectedTodo
-        ? ("0" + selectedTodo.date.getHours()).slice(-2) +
-          ":" +
-          ("0" + selectedTodo.date.getMinutes()).slice(-2)
-        : null,
+      time: selectedTodo ? selectedTodo.time : null,
       title: selectedTodo ? selectedTodo.title : null,
       link: selectedTodo ? selectedTodo.link : null,
       noti: selectedTodo ? selectedTodo.noti : true,
+      done: selectedTodo ? selectedTodo.done : false,
     };
   },
   methods: {
@@ -114,7 +111,22 @@ export default {
     ToggleNoti() {
       this.noti = !this.noti;
     },
+    UpdateChromeStorage() {
+      //eslint-disable-next-line
+      chrome.storage.local
+        .set({ todos: this.$store.getters.getTodos })
+        .then(() =>
+          console.log("value is set to" + this.$store.getters.getTodos)
+        );
+    },
     SaveAndExit(navigateMain) {
+      const addMissingScheme = (url, defaultScheme) => {
+        if (!/^(?:f|ht)tps?:\/\//.test(url)) {
+          url = defaultScheme + "://" + url;
+        }
+        return url;
+      };
+
       const time = this.time;
       const hours = time ? parseInt(this.time.slice(0, 2)) : 0;
       const minutes = time ? parseInt(this.time.slice(3)) : 0;
@@ -128,25 +140,29 @@ export default {
           minutes,
           0
         ),
+        time: this.time,
         title: this.title,
-        link: this.link,
+        link: this.link ? addMissingScheme(this.link, "http") : null,
         noti: this.noti,
-        done: false,
+        done: this.done,
       };
       if (this.$store.getters.getSelectedTodo) {
         console.log(todo);
-        this.$store.commit("EDIT_TODO", todo);
+        this.$store.dispatch("editTodo", todo);
+        this.$store.dispatch("setTodos", this.$store.getters.getTodos);
         this.$store.commit("SET_SELECTED_TODO", null);
       } else {
-        this.$store.commit("ADD_TODO", todo);
+        this.$store.dispatch("addTodo", todo);
+        this.$store.dispatch("setTodos", this.$store.getters.getTodos);
       }
       navigateMain();
     },
     DeleteAndExit(Exit) {
       const selectedTodo = this.$store.getters.getSelectedTodo;
       if (selectedTodo) {
-        this.$store.commit("DELETE_TODO", selectedTodo.id);
+        this.$store.dispatch("deleteTodo", selectedTodo.id);
         this.$store.commit("SET_SELECTED_TODO", null);
+        this.$store.dispatch("setTodos", this.$store.getters.getTodos);
       }
       Exit();
     },
@@ -240,7 +256,7 @@ label {
   color: var(--green-blue);
 }
 input[type="text"],
-input[type="link"] {
+input[type="url"] {
   width: 100%;
   margin-bottom: 1.3rem;
   padding: 1rem;

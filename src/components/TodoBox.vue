@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div class="date">{{ getSelectedDate.getDate() }}일 Task</div>
-    <router-link to="/list" custom v-slot="{ navigate }"
-      >
+    <router-link to="/list" custom v-slot="{ navigate }">
       <div @click.self="navigate" class="box">
         <TodoList></TodoList>
         <router-link to="/todo" custom v-slot="{ navigate }">
@@ -84,10 +83,8 @@ export default {
   overflow-y: auto;
   overflow-x: visible;
 }
-.box:hover{
-  cursor: pointer;
-}
 ul {
+  flex: 1;
   margin: 0;
   padding: 0 1.25rem;
   list-style: none;
@@ -115,7 +112,7 @@ time {
   color: var(--warm-grey);
 }
 button {
-  padding: 0 0.4rem;
+  padding: 0.4rem 0.4rem 0 0.4rem;
   background: none;
   border: none;
 }
