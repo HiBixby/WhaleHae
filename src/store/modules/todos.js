@@ -15,18 +15,26 @@ function CreateAlarm(todo) {
   }
 }
 function DeleteAlarm(id) {
-  //eslint-disable-next-line
-  chrome.alarms.clear(id.toString());
+  try {
+    //eslint-disable-next-line
+    chrome.alarms.clear(id.toString());
+  } catch {
+    console.log("Chrome.alarm 삭제되지 않음");
+  }
 }
 function SetChromeStorageData(todos) {
   todos.map((todo) => {
     todo.date = todo.date.getTime();
     return todo;
   });
-  //eslint-disable-next-line
-  chrome.storage.local
-    .set({ todos: todos })
-    .then(console.log("value is set to", todos));
+  try {
+    //eslint-disable-next-line
+    chrome.storage.local
+      .set({ todos: todos })
+      .then(console.log("value is set to", todos));
+  } catch {
+    console.log("chrome.storage.local에 저장 불가");
+  }
 }
 
 export const todos = {
@@ -63,7 +71,6 @@ export const todos = {
     getTodosOfDate(state, getters, rootState) {
       const selectedDate = rootState.dates.selectedDate;
       const convertedTodos = state.todos.map((todo) => {
-        console.log(new Date(todo.date));
         todo.date = new Date(todo.date);
         return todo;
       });
@@ -85,11 +92,7 @@ export const todos = {
   actions: {
     setTodos({ commit }, todos) {
       commit("SET_TODOS", todos);
-      try {
-        SetChromeStorageData(todos);
-      } catch {
-        console.log("크롬 스토리지에 저장되지 않음.");
-      }
+      SetChromeStorageData(todos);
     },
     addTodo({ commit }, todo) {
       commit("ADD_TODO", todo);
@@ -97,11 +100,7 @@ export const todos = {
     },
     deleteTodo({ commit }, id) {
       commit("DELETE_TODO", id);
-      try {
-        DeleteAlarm(id);
-      } catch {
-        console.log("알람 삭제되지 않음");
-      }
+      DeleteAlarm(id);
     },
     editTodo({ commit }, newTodo) {
       commit("EDIT_TODO", newTodo);
