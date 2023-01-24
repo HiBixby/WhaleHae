@@ -76,6 +76,9 @@ import dayjs from "dayjs";
 dayjs.locale("ko");
 export default {
   name: "AddTodo",
+  setup() {
+    document.body.style.backgroundColor = "white";
+  },
   data() {
     const selectedDate = this.$store.getters.getSelectedDate;
     const selectedTodo = this.$store.getters.getSelectedTodo;

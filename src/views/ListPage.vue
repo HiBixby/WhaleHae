@@ -38,6 +38,9 @@ export default {
   components: {
     TodoList,
   },
+  setup() {
+    document.body.style.backgroundColor = "white";
+  },
   data() {
     return {};
   },
