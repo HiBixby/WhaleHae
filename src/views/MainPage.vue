@@ -13,6 +13,9 @@ import CalendarComp from "@/components/Calendar.vue";
 import { mapGetters } from "vuex";
 export default {
   name: "MainPage",
+  setup() {
+    document.body.style.backgroundColor = "#f8fffe";
+  },
   components: {
     EmptyTodo,
     TodoBox,
@@ -35,6 +38,5 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f8fffe;
 }
 </style>

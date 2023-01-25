@@ -50,11 +50,10 @@ export default {
 .container {
   flex: 1;
   width: 100%;
-  max-height: 100%;
+  max-height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
 }
 .date {
   margin-top: 2.891rem;
@@ -75,12 +74,13 @@ export default {
   display: flex;
   flex-direction: column;
   width: 90.5%;
+  min-height: 150px;
   padding: 1.5rem 0rem;
   margin-bottom: 2rem;
   border-radius: 15px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   background-color: white;
-  overflow-y: auto;
+  overflow-y: scroll;
   overflow-x: visible;
 }
 ul {

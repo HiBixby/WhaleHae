@@ -38,7 +38,8 @@ function SetChromeStorageData(todos) {
       .set({ todos: todos })
       .then(console.log("value is set to", todos));
   } catch {
-    console.log("chrome.storage.local에 저장 불가");
+    console.log("chrome.storage.local에 저장 불가. Local storage에 저장함");
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
 }
 
