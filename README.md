@@ -10,6 +10,7 @@
 Vue3
 Vue-router4
 Vuex4
+Vite
 ```
 
 ## Project setup
@@ -19,7 +20,7 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run dev
 ```
 
 ### Compiles and minifies for production
