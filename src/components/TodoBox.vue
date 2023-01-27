@@ -20,6 +20,7 @@
                 fill="#01af94"
               />
             </svg>
+            <span class="screen-reader">추가</span>
           </button>
         </router-link>
       </div>

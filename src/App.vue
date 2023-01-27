@@ -51,4 +51,12 @@ export default {
   height: 100%;
   color: #2c3e50;
 }
+.screen-reader {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+}
 </style>
