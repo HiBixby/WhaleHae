@@ -45,13 +45,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
-body,
-html {
-  height: 100%;
-}
-body {
-  margin: 0px;
-}
+
 #app {
   height: 100%;
   color: #2c3e50;
