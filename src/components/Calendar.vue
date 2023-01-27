@@ -141,7 +141,7 @@ button:hover {
   line-height: 1.17;
   letter-spacing: normal;
   color: #01af94;
-  margin: 1.705rem 0 0 5.6%;
+  margin: 1.705rem 0 0 5.4%;
 }
 .month {
   font-family: Pretendard;
