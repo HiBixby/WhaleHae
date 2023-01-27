@@ -34,6 +34,7 @@ export default {
   --aqua-marine: #34e8cd;
   --light-grey-blue: #a4c9c3;
   --warm-grey: #707070;
+  --ice: #defffa;
   --ice-blue: #ebfffc;
 }
 * {
