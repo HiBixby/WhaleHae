@@ -2,7 +2,7 @@
   <div class="wrapper">
     <nav>
       <router-link to="/" custom v-slot="{ navigate }">
-        <button @click="navigate" class="btn-prev">
+        <button @click="navigate" class="btn-prev" title="메인 페이지">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="11.507"
