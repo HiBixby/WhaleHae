@@ -156,7 +156,6 @@ time {
   font-style: normal;
   line-height: 1.19;
   letter-spacing: normal;
-  text-align: center;
   color: var(--warm-grey);
   width: 80%;
   overflow: hidden;
