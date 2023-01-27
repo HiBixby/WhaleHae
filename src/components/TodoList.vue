@@ -13,12 +13,15 @@
         >
       </div>
       <div class="second-line">
-        <span class="title" :class="{ done: todo.done }">{{ todo.title }}</span>
+        <span class="title" :class="{ done: todo.done }" :title="todo.title">{{
+          todo.title
+        }}</span>
         <div class="button-container">
           <router-link to="/todo" custom v-slot="{ navigate }">
             <button
               @click="[navigate(), setSelectedTodo(todo)]"
               class="btn-edit"
+              title="수정"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -34,10 +37,13 @@
                   fill="#01af94"
                 />
               </svg>
-              <span class="screen-reader">편집</span>
             </button>
           </router-link>
-          <button @click="ToggleNoti(todo)" class="btn-noti">
+          <button
+            @click="ToggleNoti(todo)"
+            class="btn-noti"
+            :title="todo.noti ? '알림 켜짐' : '알림 꺼짐'"
+          >
             <svg
               v-if="todo.noti"
               xmlns="http://www.w3.org/2000/svg"
@@ -152,6 +158,10 @@ time {
   letter-spacing: normal;
   text-align: center;
   color: var(--warm-grey);
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .btn-noti svg {
   fill: var(--green-blue);
@@ -167,6 +177,7 @@ button:hover {
   cursor: pointer;
 }
 .link {
+  display: inline-block;
   margin: 0;
   font-size: 0.625rem;
   font-weight: 100;
@@ -175,6 +186,10 @@ button:hover {
   line-height: 1.1;
   letter-spacing: normal;
   color: #b9b9b9;
+  width: 85%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 hr {
   border: solid 1px var(--light-grey-blue);

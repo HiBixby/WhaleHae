@@ -5,7 +5,7 @@
       <p>일정을 추가해봐요!</p>
     </div>
     <router-link to="/todo" v-slot="{ navigate }" custom>
-      <button @click="navigate">
+      <button @click="navigate" title="일정 생성">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="54"
