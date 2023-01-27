@@ -79,7 +79,7 @@ import "dayjs/locale/ko";
 dayjs.locale("ko");
 
 export default {
-  name: "TodoList",
+  name: "TodoListComponent",
   data() {
     return {
       done: [],

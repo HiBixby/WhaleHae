@@ -35,7 +35,7 @@ import "dayjs/locale/ko";
 dayjs.locale("ko");
 
 export default {
-  name: "TodoBox",
+  name: "TodoBoxComponent",
   components: { TodoList },
 
   computed: {

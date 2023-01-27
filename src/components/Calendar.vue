@@ -69,7 +69,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
-  name: "CalendarComp",
+  name: "CalendarComponent",
   data() {
     return {
       currentDate: new Date(),
