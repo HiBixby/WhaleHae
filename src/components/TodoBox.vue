@@ -5,7 +5,7 @@
       <div @click.self="navigate" class="box">
         <TodoList></TodoList>
         <router-link to="/todo" custom v-slot="{ navigate }">
-          <button class="btn-add" @click="navigate">
+          <button class="btn-add" @click="navigate" title="추가">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -20,7 +20,6 @@
                 fill="#01af94"
               />
             </svg>
-            <span class="screen-reader">추가</span>
           </button>
         </router-link>
       </div>
