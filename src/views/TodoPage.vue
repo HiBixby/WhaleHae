@@ -2,7 +2,11 @@
   <div class="container">
     <nav>
       <router-link to="/" custom v-slot="{ navigate }">
-        <button @click="SaveAndExit(navigate)" class="btn-prev">
+        <button
+          @click="SaveAndExit(navigate)"
+          class="btn-prev"
+          title="저장하고 나가기"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="11.507"
@@ -19,7 +23,6 @@
               stroke-width="0.5"
             />
           </svg>
-          <span class="screen-reader">저장하고 나가기</span>
         </button>
       </router-link>
     </nav>
