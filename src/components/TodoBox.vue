@@ -73,6 +73,7 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 90.5%;
   min-height: 150px;
   padding: 1.5rem 0rem;
@@ -133,6 +134,11 @@ hr {
   border: solid 1px var(--light-grey-blue);
 }
 .btn-add {
-  flex: 0;
+  flex-grow: 0;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
 }
 </style>

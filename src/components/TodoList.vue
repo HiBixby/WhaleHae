@@ -127,6 +127,7 @@ ul {
   padding: 0 1.25rem;
   list-style: none;
   overflow: scroll;
+  width: 100%;
 }
 input[type="checkbox"] {
   accent-color: var(--green-blue);
