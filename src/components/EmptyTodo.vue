@@ -1,11 +1,11 @@
 <template>
-  <div class="empty-todo">
+  <div class="container">
     <div>
       <p>오늘은 한가하네요</p>
       <p>일정을 추가해봐요!</p>
     </div>
-    <router-link to="/todo" v-slot="{ navigate }">
-      <button @click="navigate">
+    <router-link to="/todo" v-slot="{ navigate }" custom>
+      <button @click="navigate" title="새 일정 생성">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="54"
@@ -54,18 +54,19 @@
 
 <script>
 export default {
-  name: "EmptyTodo",
+  name: "EmptyTodoComponent",
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.empty-todo {
+.container {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 2rem 0;
 }
 p {
   margin: 0;

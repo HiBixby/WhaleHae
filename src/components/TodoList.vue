@@ -2,19 +2,26 @@
   <ul>
     <li v-for="todo in getTodosOfDate" v-bind:key="todo">
       <div class="first-line">
+        <label :for="`done__${todo.id}`" class="screen-reader">완료</label>
         <input
+          :id="`done__${todo.id}`"
           type="checkbox"
           @click="ToggleDone(todo)"
           :checked="todo.done"
-        /><time :class="{ done: todo.done }"> {{ todo.time ? todo.time : "--:--" }}</time>
+        /><time :class="{ done: todo.done }">
+          {{ todo.time ? todo.time : "--:--" }}</time
+        >
       </div>
       <div class="second-line">
-        <span class="title" :class="{ done: todo.done }">{{ todo.title }}</span>
+        <span class="title" :class="{ done: todo.done }" :title="todo.title">{{
+          todo.title
+        }}</span>
         <div class="button-container">
           <router-link to="/todo" custom v-slot="{ navigate }">
             <button
               @click="[navigate(), setSelectedTodo(todo)]"
               class="btn-edit"
+              title="수정"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +39,11 @@
               </svg>
             </button>
           </router-link>
-          <button @click="ToggleNoti(todo)" class="btn-noti">
+          <button
+            @click="ToggleNoti(todo)"
+            class="btn-noti"
+            :title="todo.noti ? '알림 켜짐' : '알림 꺼짐'"
+          >
             <svg
               v-if="todo.noti"
               xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +66,8 @@
                 d="M256 32V49.88C328.5 61.39 384 124.2 384 200V233.4C384 278.8 399.5 322.9 427.8 358.4L442.7 377C448.5 384.2 449.6 394.1 445.6 402.4C441.6 410.7 433.2 416 424 416H24C14.77 416 6.365 410.7 2.369 402.4C-1.628 394.1-.504 384.2 5.26 377L20.17 358.4C48.54 322.9 64 278.8 64 233.4V200C64 124.2 119.5 61.39 192 49.88V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32V32zM216 96C158.6 96 112 142.6 112 200V233.4C112 281.3 98.12 328 72.31 368H375.7C349.9 328 336 281.3 336 233.4V200C336 142.6 289.4 96 232 96H216zM288 448C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288z"
               />
             </svg>
+            <span v-if="todo.noti" class="screen-reader">알림 켜짐</span>
+            <span v-else class="screen-reader">알림 꺼짐</span>
           </button>
         </div>
       </div>
@@ -79,7 +92,7 @@ import "dayjs/locale/ko";
 dayjs.locale("ko");
 
 export default {
-  name: "TodoList",
+  name: "TodoListComponent",
   data() {
     return {
       done: [],
@@ -114,6 +127,7 @@ ul {
   padding: 0 1.25rem;
   list-style: none;
   overflow: scroll;
+  width: 100%;
 }
 input[type="checkbox"] {
   accent-color: var(--green-blue);
@@ -143,8 +157,11 @@ time {
   font-style: normal;
   line-height: 1.19;
   letter-spacing: normal;
-  text-align: center;
   color: var(--warm-grey);
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .btn-noti svg {
   fill: var(--green-blue);
@@ -160,6 +177,7 @@ button:hover {
   cursor: pointer;
 }
 .link {
+  display: inline-block;
   margin: 0;
   font-size: 0.625rem;
   font-weight: 100;
@@ -168,6 +186,10 @@ button:hover {
   line-height: 1.1;
   letter-spacing: normal;
   color: #b9b9b9;
+  width: 85%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 hr {
   border: solid 1px var(--light-grey-blue);

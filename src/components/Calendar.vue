@@ -1,9 +1,10 @@
 <template>
   <div class="calendar">
+    <h3 class="screen-reader">달력</h3>
     <div class="year">{{ getCurrYear }}</div>
     <div class="month">{{ getCurrMonth }}</div>
     <div class="btn-container">
-      <button class="btn-prev" @click.prevent="GoPrevMonth">
+      <button class="btn-prev" @click.prevent="GoPrevMonth" title="이전 달">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="8"
@@ -15,7 +16,7 @@
           />
         </svg>
       </button>
-      <button class="btn-next" @click="GoNextMonth">
+      <button class="btn-next" @click="GoNextMonth" title="다음 달">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="8"
@@ -37,27 +38,39 @@
       <li>Fr</li>
       <li>Sa</li>
     </ul>
-    <ul class="days">
-      <li v-for="i in getFirstDayOfMonth" v-bind:key="i" class="disabled">
+    <div class="days">
+      <button
+        v-for="i in getFirstDayOfMonth"
+        v-bind:key="i"
+        class="disabled"
+        disabled
+      >
         <!-- {{ getLastDateOfLastMonth - (getFirstDayOfMonth - i) }} -->
-      </li>
-      <li
+      </button>
+      <button
         v-for="i in getLastDateOfMonth"
         v-bind:key="i"
+        class="active"
         :class="{
           selected: i === getSelectedDate.getDate() && isEqualYearAndMonth,
         }"
+        @click="ChangeSelectedDate(i)"
       >
-        <button class="active" @click="ChangeSelectedDate(i)">{{ i }}</button>
-      </li>
-    </ul>
+        <time
+          :datetime="`${getSelectedDate.getFullYear()}-${
+            getSelectedDate.getMonth() + 1
+          }-${i}`"
+          >{{ i }}</time
+        >
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
-  name: "CalendarComp",
+  name: "CalendarComponent",
   data() {
     return {
       currentDate: new Date(),
@@ -88,7 +101,7 @@ export default {
       return this.currentDate.getFullYear();
     },
     getCurrMonth: function () {
-      return ("0"+(this.currentDate.getMonth() + 1)).slice(-2);
+      return ("0" + (this.currentDate.getMonth() + 1)).slice(-2);
     },
     getCurrDay: function () {
       return this.currentDate.getDay();
@@ -141,7 +154,7 @@ button:hover {
   line-height: 1.17;
   letter-spacing: normal;
   color: #01af94;
-  margin: 1.705rem 0 0 5.6%;
+  margin: 1.705rem 0 0 5.4%;
 }
 .month {
   font-family: Pretendard;
@@ -171,23 +184,20 @@ button:hover {
 .btn-container button:disabled {
   fill: #707070;
 }
-.days li {
-  font-size: 0.875rem;
-}
 .days {
-  list-style: none;
-  padding: 0;
   display: grid;
-  margin-top: 0.922rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1.938rem;
+  margin: 0.922rem 1rem 1.938rem 1rem;
   grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  row-gap: 1.8rem;
+  grid-row-gap: 0.772rem;
+  justify-items: center;
+}
+.days button {
+  font-size: 0.875rem;
+  width: 2.063rem;
+  height: 2.063rem;
 }
 .disabled {
-  color: var(--warm-grey);
+  visibility: hidden;
 }
 .active {
   color: var(--green-blue);
@@ -195,27 +205,11 @@ button:hover {
   background: none;
   font-weight: 500;
 }
-.selected button {
-  position: relative;
-  font-weight: 800;
-  z-index: 10;
-}
 .selected {
-  display: inline-table;
-  position: relative;
-}
-.selected::before {
-  position: absolute;
-  content: "";
-  height: 2.063rem;
-  width: 2.063rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #defffa;
+  font-weight: 800;
   border-radius: 5px;
+  background-color: var(--ice);
   border: solid 1px var(--green-blue);
-  z-index: 9;
 }
 .weeks {
   list-style: none;

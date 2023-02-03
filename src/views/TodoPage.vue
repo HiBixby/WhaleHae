@@ -2,7 +2,11 @@
   <div class="container">
     <nav>
       <router-link to="/" custom v-slot="{ navigate }">
-        <button @click="SaveAndExit(navigate)" class="btn-prev">
+        <button
+          @click="SaveAndExit(navigate)"
+          class="btn-prev"
+          title="저장하고 나가기"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="11.507"
@@ -25,8 +29,13 @@
     <header>
       <time class="day">{{ getYYYYMMDD }}</time>
       <div class="second-line">
-        <input v-model="time" type="time" class="time" />
-        <button @click="ToggleNoti" class="btn-noti">
+        <label for="time" class="screen-reader">시간</label>
+        <input v-model="time" type="time" id="time" class="time" />
+        <button
+          @click="ToggleNoti"
+          class="btn-noti"
+          :title="noti ? '알림 켜짐' : '알림 꺼짐'"
+        >
           <svg
             v-if="noti"
             xmlns="http://www.w3.org/2000/svg"

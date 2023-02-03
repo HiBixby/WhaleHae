@@ -34,6 +34,7 @@ export default {
   --aqua-marine: #34e8cd;
   --light-grey-blue: #a4c9c3;
   --warm-grey: #707070;
+  --ice: #defffa;
   --ice-blue: #ebfffc;
 }
 * {
@@ -45,15 +46,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
-body,
-html {
-  height: 100%;
-}
-body {
-  margin: 0px;
-}
+
 #app {
   height: 100%;
   color: #2c3e50;
+}
+.screen-reader {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
 }
 </style>
