@@ -5,28 +5,10 @@
     <div class="month">{{ getCurrMonth }}</div>
     <div class="btn-container">
       <button class="btn-prev" @click.prevent="GoPrevMonth" title="이전 달">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="8"
-          height="16"
-          viewBox="0 0 8 16"
-        >
-          <path
-            d="M7.223 15.859.112 8.28v-.006l-.024-.022A.4.4 0 0 1 0 8a.4.4 0 0 1 .043-.18v-.006a.417.417 0 0 1 .068-.092L7.223.141a.461.461 0 0 1 .628-.034.4.4 0 0 1 .036.593L1.039 8l6.848 7.3a.4.4 0 0 1-.037.594.462.462 0 0 1-.627-.035z"
-          />
-        </svg>
+        <ChevronLeftIcon />
       </button>
       <button class="btn-next" @click="GoNextMonth" title="다음 달">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="8"
-          height="16"
-          viewBox="0 0 8 16"
-        >
-          <path
-            d="M.777.141 7.888 7.72v.006l.024.022A.4.4 0 0 1 8 8a.4.4 0 0 1-.043.18v.006a.417.417 0 0 1-.068.092L.777 15.859a.461.461 0 0 1-.628.034.4.4 0 0 1-.036-.593L6.961 8 .113.7A.4.4 0 0 1 .15.106a.462.462 0 0 1 .627.035z"
-          />
-        </svg>
+        <ChevronRightIcon />
       </button>
     </div>
     <ul class="weeks">
@@ -69,8 +51,11 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
+import ChevronLeftIcon from "../assets/chevron-left.svg";
+import ChevronRightIcon from "../assets/chevron-right.svg";
 export default {
   name: "CalendarComponent",
+  components: { ChevronLeftIcon, ChevronRightIcon },
   data() {
     return {
       currentDate: new Date(),
