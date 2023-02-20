@@ -73,9 +73,6 @@
         placeholder="URL을 입력해주세요."
       />
     </form>
-    <router-link to="/" custom v-slot="{ navigate }">
-      <button @click="DeleteAndExit(navigate)" class="btn-delete">삭제</button>
-    </router-link>
   </div>
 </template>
 

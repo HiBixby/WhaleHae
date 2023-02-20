@@ -17,6 +17,9 @@
           todo.title
         }}</span>
         <div class="button-container">
+          <button @click="DeleteTodo(todo)" class="btn-delete" title="삭제">
+            <DeleteIcon />
+          </button>
           <router-link to="/todo" custom v-slot="{ navigate }">
             <button
               @click="[navigate(), setSelectedTodo(todo)]"
@@ -59,6 +62,7 @@ import "dayjs/locale/ko";
 import EditIcon from "../assets/edit.svg";
 import NotiOnIcon from "../assets/noti-on.svg";
 import NotiOffIcon from "../assets/noti-off.svg";
+import DeleteIcon from "../assets/trash.svg";
 dayjs.locale("ko");
 
 export default {
@@ -67,6 +71,7 @@ export default {
     EditIcon,
     NotiOnIcon,
     NotiOffIcon,
+    DeleteIcon,
   },
   data() {
     return {
@@ -87,6 +92,11 @@ export default {
       this.$store.dispatch("editTodo", todo);
       this.$store.dispatch("setTodos", this.$store.getters.getTodos);
     },
+    DeleteTodo(todo) {
+      if (confirm("정말 삭제하시겠습니까?") == true) {
+        this.$store.dispatch("deleteTodo", todo.id);
+      }
+    },
   },
   computed: {
     ...mapState(["selectedDate", "todos"]),
@@ -103,6 +113,19 @@ ul {
   list-style: none;
   overflow: scroll;
   width: 100%;
+}
+
+@media (any-pointer: coarse) {
+  .btn-delete {
+    display: inline !important;
+  }
+}
+
+.btn-delete {
+  display: none;
+}
+li:hover .btn-delete {
+  display: inline;
 }
 input[type="checkbox"] {
   accent-color: var(--green-blue);
@@ -133,7 +156,7 @@ time {
   line-height: 1.19;
   letter-spacing: normal;
   color: var(--warm-grey);
-  width: 80%;
+  flex: 1;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
