@@ -6,20 +6,7 @@
         <TodoList></TodoList>
         <router-link to="/todo" custom v-slot="{ navigate }">
           <button class="btn-add" @click="navigate" title="새 일정 생성">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-            >
-              <path
-                id="패스_2"
-                data-name="패스 2"
-                d="M-550,136a9,9,0,0,0,9-9,9,9,0,0,0-9-9,9,9,0,0,0-9,9A9,9,0,0,0-550,136Zm-.844-5.906v-2.25h-2.25a.842.842,0,0,1-.844-.844.842.842,0,0,1,.844-.844h2.25v-2.25a.842.842,0,0,1,.844-.844.842.842,0,0,1,.844.844v2.25h2.25a.842.842,0,0,1,.844.844.842.842,0,0,1-.844.844h-2.25v2.25a.842.842,0,0,1-.844.844A.842.842,0,0,1-550.844,130.094Z"
-                transform="translate(559 -118)"
-                fill="#01af94"
-              />
-            </svg>
+            <SmallCirclePlusIcon />
           </button>
         </router-link>
       </div>
@@ -32,11 +19,12 @@ import TodoList from "./TodoList.vue";
 import { mapGetters, mapState } from "vuex";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
+import SmallCirclePlusIcon from "../assets/small-circle-plus.svg";
 dayjs.locale("ko");
 
 export default {
   name: "TodoBoxComponent",
-  components: { TodoList },
+  components: { TodoList, SmallCirclePlusIcon },
 
   computed: {
     ...mapState(["selectedDate", "todos"]),
