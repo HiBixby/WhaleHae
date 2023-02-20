@@ -136,7 +136,8 @@ export default {
       const unsavedChanges =
         (this.title !== null && this.title !== selectedTodo?.title) ||
         (this.link !== null && this.link !== selectedTodo?.link) ||
-        (this.time !== null && this.time !== selectedTodo?.time);
+        (this.time !== null && this.time !== selectedTodo?.time) ||
+        (this.noti !== true && this.noti !== selectedTodo?.noti);
 
       if (
         unsavedChanges &&
