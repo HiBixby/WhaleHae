@@ -95,6 +95,7 @@ export default {
     DeleteTodo(todo) {
       if (confirm("정말 삭제하시겠습니까?") == true) {
         this.$store.dispatch("deleteTodo", todo.id);
+        this.$store.dispatch("setTodos", this.$store.getters.getTodos);
       }
     },
   },
