@@ -3,7 +3,7 @@
     <nav>
       <router-link to="/" custom v-slot="{ navigate }">
         <button
-          @click="SaveAndExit(navigate)"
+          @click="Exit(navigate)"
           class="btn-prev"
           title="저장하고 나가기"
         >
@@ -73,6 +73,9 @@
         placeholder="URL을 입력해주세요."
       />
     </form>
+    <router-link to="/" custom v-slot="{ navigate }">
+      <button class="btn-save" @click="SaveAndExit(navigate)">저장</button>
+    </router-link>
   </div>
 </template>
 
@@ -127,6 +130,23 @@ export default {
         .then(() =>
           console.log("value is set to" + this.$store.getters.getTodos)
         );
+    },
+    Exit(navigateMain) {
+      const selectedTodo = this.$store.getters.getSelectedTodo;
+      const unsavedChanges =
+        (this.title !== null && this.title !== selectedTodo?.title) ||
+        (this.link !== null && this.link !== selectedTodo?.link) ||
+        (this.time !== null && this.time !== selectedTodo?.time);
+
+      if (
+        unsavedChanges &&
+        !confirm("저장되지 않은 항목이 있습니다. 정말 나가시겠습니까?")
+      ) {
+        return;
+      }
+
+      navigateMain();
+      this.$store.commit("SET_SELECTED_TODO", null);
     },
     SaveAndExit(navigateMain) {
       const addMissingScheme = (url, defaultScheme) => {
@@ -288,7 +308,7 @@ input::placeholder {
 input:focus {
   outline-color: var(--green-blue);
 }
-.btn-delete {
+.btn-save {
   min-height: 3.188rem;
   font-size: 1rem;
   font-weight: 600;
