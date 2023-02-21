@@ -2,27 +2,8 @@
   <div class="container">
     <nav>
       <router-link to="/" custom v-slot="{ navigate }">
-        <button
-          @click="Exit(navigate)"
-          class="btn-prev"
-          title="뒤로"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="11.507"
-            height="20.553"
-            viewBox="0 0 11.507 20.553"
-          >
-            <path
-              id="back"
-              d="M9.938,19.835.154,10.356l0,0,0,0-.006-.006,0,0-.007-.007,0,0-.008-.009h0A.478.478,0,0,1,0,10.012s0,0,0-.006S0,10,0,10a.465.465,0,0,1,.059-.219v0l0-.007,0-.006v0a.528.528,0,0,1,.093-.114L9.938.177A.681.681,0,0,1,10.8.133a.476.476,0,0,1,.051.743L1.43,10.006l9.421,9.13a.476.476,0,0,1-.051.743.668.668,0,0,1-.406.133A.659.659,0,0,1,9.938,19.835Z"
-              transform="translate(0.25 0.291)"
-              fill="#707070"
-              stroke="#707070"
-              stroke-linecap="round"
-              stroke-width="0.5"
-            />
-          </svg>
+        <button @click="Exit(navigate)" class="btn-prev" title="뒤로">
+          <BackIcon />
         </button>
       </router-link>
     </nav>
@@ -36,24 +17,8 @@
           class="btn-noti"
           :title="noti ? '알림 켜짐' : '알림 꺼짐'"
         >
-          <svg
-            v-if="noti"
-            xmlns="http://www.w3.org/2000/svg"
-            width="21.888"
-            height="25.014"
-            viewBox="0 0 21.888 25.014"
-          >
-            <path
-              d="M10.962 0A1.562 1.562 0 0 0 9.4 1.563V2.5a7.821 7.821 0 0 0-6.254 7.661v.918a9.4 9.4 0 0 1-2.37 6.234l-.362.406a1.564 1.564 0 0 0 1.168 2.6h18.76a1.564 1.564 0 0 0 1.168-2.6l-.362-.406a9.394 9.394 0 0 1-2.37-6.234v-.918A7.821 7.821 0 0 0 12.525 2.5v-.937A1.562 1.562 0 0 0 10.962 0zm2.213 24.1a3.128 3.128 0 0 0 .914-2.213H7.835a3.13 3.13 0 0 0 5.34 2.213z"
-              transform="translate(-.019)"
-            />
-          </svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-            <path
-              d="M256 32V49.88C328.5 61.39 384 124.2 384 200V233.4C384 278.8 399.5 322.9 427.8 358.4L442.7 377C448.5 384.2 449.6 394.1 445.6 402.4C441.6 410.7 433.2 416 424 416H24C14.77 416 6.365 410.7 2.369 402.4C-1.628 394.1-.504 384.2 5.26 377L20.17 358.4C48.54 322.9 64 278.8 64 233.4V200C64 124.2 119.5 61.39 192 49.88V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32V32zM216 96C158.6 96 112 142.6 112 200V233.4C112 281.3 98.12 328 72.31 368H375.7C349.9 328 336 281.3 336 233.4V200C336 142.6 289.4 96 232 96H216zM288 448C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288z"
-            />
-          </svg>
+          <NotiOnIcon v-if="noti" />
+          <NotiOffIcon v-else />
         </button>
       </div>
     </header>
@@ -82,9 +47,17 @@
 <script>
 import { mapGetters } from "vuex";
 import dayjs from "dayjs";
+import BackIcon from "../assets/back.svg";
+import NotiOnIcon from "../assets/noti-on.svg";
+import NotiOffIcon from "../assets/noti-off.svg";
 dayjs.locale("ko");
 export default {
   name: "AddTodo",
+  components: {
+    BackIcon,
+    NotiOnIcon,
+    NotiOffIcon,
+  },
   setup() {
     document.body.style.backgroundColor = "white";
   },
