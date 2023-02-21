@@ -1,6 +1,9 @@
 console.log("background.js loaded!");
 
+const ONE_MINUTE = 60000;
+
 let passedAlarmCnt = 0;
+
 const CreateTab = (link) => {
   //링크가 null이 아니라면 탭 열기
   if (link !== null) {
@@ -50,7 +53,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   console.log("result is...", result);
   const index = FindIndexOfTodo(id, result);
   //시간이 지난 알람일 때
-  if (Date.now() > result.todos[index].date + 60000) {
+  if (Date.now() > result.todos[index].date + ONE_MINUTE) {
     passedAlarmCnt++;
     const NOTIFICATION_ID = "hasPassedAlarms";
     const message = `자리를 비운 동안 ${passedAlarmCnt}개의 알림이 실행되지 않았습니다.`;
