@@ -5,7 +5,7 @@
 🚧 WIP 🚧
 
 ## How to use
-1. [웨일 스토어에서 설치하기 (v0.1.2)](https://store.whale.naver.com/detail/gmpkjmenbbmjcmcjpclkedbfbhmogbhp)
+1. [웨일 스토어에서 설치하기 (v0.1.4)](https://store.whale.naver.com/detail/gmpkjmenbbmjcmcjpclkedbfbhmogbhp)
 
 2. [개발 버전 체험 (v0.1.4)](https://hibixby.github.io/WhaleHae/)
 
