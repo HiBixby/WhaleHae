@@ -131,7 +131,6 @@ button:hover {
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 }
 .year {
-  font-family: Pretendard;
   font-size: 1.125rem;
   font-weight: 600;
   font-stretch: normal;
@@ -142,7 +141,6 @@ button:hover {
   margin: 1.705rem 0 0 5.4%;
 }
 .month {
-  font-family: Pretendard;
   font-size: 1.563rem;
   font-weight: 900;
   font-stretch: normal;
