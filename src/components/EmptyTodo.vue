@@ -12,14 +12,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import BigCirclePlusIcon from "../assets/big-circle-plus.svg";
-export default {
-  name: "EmptyTodoComponent",
-  components: {
-    BigCirclePlusIcon,
-  },
-};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
