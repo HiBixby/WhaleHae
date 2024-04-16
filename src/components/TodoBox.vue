@@ -14,23 +14,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TodoList from "./TodoList.vue";
-import { mapGetters, mapState } from "vuex";
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
+import { useStore } from "vuex";
 import SmallCirclePlusIcon from "../assets/small-circle-plus.svg";
-dayjs.locale("ko");
-
-export default {
-  name: "TodoBoxComponent",
-  components: { TodoList, SmallCirclePlusIcon },
-
-  computed: {
-    ...mapState(["selectedDate", "todos"]),
-    ...mapGetters(["getSelectedDate", "getTodosOfDate"]),
-  },
-};
+import { computed } from "vue";
+const store = useStore();
+const getSelectedDate = computed(() => store.getters.getSelectedDate);
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
