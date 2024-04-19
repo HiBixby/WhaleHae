@@ -13,28 +13,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TodoList from "@/components/TodoList.vue";
-import { mapGetters } from "vuex";
 import BackIcon from "../assets/back.svg";
+import { useStore } from "vuex";
 import dayjs from "dayjs";
+import { computed } from "vue";
 dayjs.locale("ko");
-export default {
-  name: "AddTodo",
-  components: {
-    TodoList,
-    BackIcon,
-  },
-  setup() {
-    document.body.style.backgroundColor = "white";
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapGetters(["getSelectedDate", "getTodosOfDate"]),
-  },
-};
+const store = useStore();
+document.body.style.backgroundColor = "white";
+const getSelectedDate = computed(() => store.getters.getSelectedDate);
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
